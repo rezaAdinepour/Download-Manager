@@ -2,8 +2,6 @@
 
 # Developer: https://github.com/rezaAdinepour
 
-clear
-
 display_help() {
     echo "Usage: $0 [options]"
     echo "Options:"
@@ -15,9 +13,28 @@ display_help() {
     exit 0
 }
 
+
+calculate_remaining_time() {
+    local target_hour=$1
+    local target_min=$2
+    local current_hour=$(date +%H)
+    local current_min=$(date +%M)
+    
+    local target_total=$((target_hour * 60 + target_min))
+    local current_total=$((current_hour * 60 + current_min))
+    
+    if [ $target_total -gt $current_total ]; then
+        echo $((target_total - current_total))
+    else
+        echo $(( (24*60 - current_total) + target_total ))
+    fi
+}
+
+
 DOWNLOAD_DIR=$(pwd)
 LOG_FILE="$DOWNLOAD_DIR/download_log.txt"
 LINKS_FILE=""
+
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -95,10 +112,6 @@ mkdir -p "$(dirname "$LOG_FILE")" || {
     exit 1
 }
 
-# Calculate target time in minutes
-inp_total_min=$((inp_hour * 60 + inp_minute))
-
-# Log function
 log_message() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     echo "[$timestamp] $1" | tee -a "$LOG_FILE"
@@ -106,32 +119,19 @@ log_message() {
 
 log_message "Script started - Scheduled for $inp_hour:$inp_minute"
 
-# Wait until the scheduled time
-while true; do
-    sys_hour=$(date +%H)
-    sys_minute=$(date +%M)
-    sys_total_min=$((sys_hour * 60 + sys_minute))
-    
-    if [ "$inp_total_min" -eq "$sys_total_min" ]; then
-        break
-    fi
-    
-    # Calculate remaining minutes
-    remaining=$((inp_total_min - sys_total_min))
-    # Handle case where scheduled time is next day
-    if [ "$remaining" -lt 0 ]; then
-        remaining=$((remaining + 24*60))
-    fi
-    
+# Wait until the scheduled time using fixed calculation
+remaining=$(calculate_remaining_time $inp_hour $inp_minute)
+while [ $remaining -gt 0 ]; do
     log_message "Waiting for scheduled time... $remaining minutes remaining"
     sleep 60
+    remaining=$(calculate_remaining_time $inp_hour $inp_minute)
 done
 
 log_message "Download Started..."
 success_count=0
 fail_count=0
 
-# Process each link
+
 while IFS= read -r url; do
     # Skip empty lines
     if [ -z "$url" ]; then
@@ -140,10 +140,8 @@ while IFS= read -r url; do
     
     log_message "Downloading: $url"
     
-    # Extract filename from URL
     filename=$(basename "$url")
     
-    # Download the file
     if wget -q --show-progress -P "$DOWNLOAD_DIR" "$url"; then
         log_message "Successfully downloaded: $filename"
         ((success_count++))
