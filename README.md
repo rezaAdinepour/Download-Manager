@@ -106,11 +106,11 @@ The log file contains timestamped entries for all operations:
 use `install_requirements.sh` for check and install all of requirements:
 
 1. Make the installer executable:
-  ```bash
+   ```bash
    chmod +x install_requirements.sh
-  ```
+   ```
 
-2. Run the installer:
+3. Run the installer:
    ```bash
    ./install_requirements.sh
    ```
