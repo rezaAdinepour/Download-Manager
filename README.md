@@ -109,6 +109,7 @@ use `install_requirements.sh` for check and install all of requirements:
   ```bash
    chmod +x install_requirements.sh
   ```
+
 2. Run the installer:
    ```bash
    ./install_requirements.sh
