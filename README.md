@@ -16,6 +16,6 @@ A bash script to schedule downloads at a specific time with flexible link input,
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/download-scheduler.git
-   cd download-scheduler
+   git clone https://github.com/rezaAdinepour/Download-Scheduler.git
+   cd Download-Scheduler
    ```
