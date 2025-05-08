@@ -56,3 +56,63 @@ The script will prompt you for:
 2. For `-l/--links`, the file should contain one URL per line
 3. Directory paths can be absolute or relative
 4. When no options are provided, the script defaults to interactive mode
+
+
+## Examples
+
+1. Schedule downloads for 3:15 PM using links from a file:
+   ```bash
+   ./crazy_ds.sh -t 15:15 -l my_links.txt
+   ```
+2. Schedule for 9:30 AM, save to custom directory with custom log:
+   ```bash
+   ./crazy_ds.sh -t 09:30 -d ~/my_downloads -o ~/my_logs/down.log
+   ```
+3. Enter links interactively for 11:45 PM:
+   ```bash
+   ./crazy_ds.sh -t 23:45
+   ```
+(Then paste/type your links, `Ctrl+D` when done)
+
+
+## Link File Format
+
+Create a text file with one download URL per line:
+
+```bash
+https://example.com/file1.zip
+https://example.com/file2.jpg
+https://example.com/file3.pdf
+```
+
+## Log File Format
+
+The log file contains timestamped entries for all operations:
+
+```bash
+[2023-11-15 14:30:00] Script started - Scheduled for 14:30
+[2023-11-15 14:30:00] Download Started...
+[2023-11-15 14:30:02] Downloading: https://example.com/file1.zip
+[2023-11-15 14:30:05] Successfully downloaded: file1.zip
+[2023-11-15 14:30:15] Download completed at 14:30:15 - 1 succeeded, 0 failed
+```
+
+## Requirements
+
+* Bash (typically installed by default on Linux/macOS)
+* `wget` (for downloads)
+* `notify-send` (optional, for desktop notifications on Linux)
+
+use `install_requirements.sh` for check and install all of requirements:
+
+1. Make the installer executable:
+  ```bash
+   chmod +x install_requirements.sh
+  ```
+2. Run the installer:
+   ```bash
+   ./install_requirements.sh
+   ```
+
+## License
+MIT License - Free to use and modify
