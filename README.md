@@ -44,12 +44,12 @@ The script will prompt you for:
 
 | Option               | Short Form | Description                                      | Example Usage                    |
 |----------------------|------------|--------------------------------------------------|----------------------------------|
-| `--help`             | `-h`       | Show help message and exit                       | `./download_scheduler.sh -h`     |
-| `--time HH:MM`       | `-t HH:MM` | Set scheduled time in 24-hour format             | `./download_scheduler.sh -t 14:30` |
-| `--links FILE`       | `-l FILE`  | Path to file containing download URLs            | `./download_scheduler.sh -l urls.txt` |
-| `--directory PATH`   | `-d PATH`  | Set custom download directory                    | `./download_scheduler.sh -d ~/downloads` |
-| `--log FILE`         | `-o FILE`  | Specify custom log file path                     | `./download_scheduler.sh -o download.log` |
-| `--interactive`      | `-i`       | Force interactive mode                           | `./download_scheduler.sh -i`     |
+| `--help`             | `-h`       | Show help message and exit                       | `./crazy_ds.sh -h`     |
+| `--time HH:MM`       | `-t HH:MM` | Set scheduled time in 24-hour format             | `./crazy_ds.sh -t 14:30` |
+| `--links FILE`       | `-l FILE`  | Path to file containing download URLs            | `./crazy_ds.sh -l urls.txt` |
+| `--directory PATH`   | `-d PATH`  | Set custom download directory                    | `./crazy_ds.sh -d ~/downloads` |
+| `--log FILE`         | `-o FILE`  | Specify custom log file path                     | `./crazy_ds.sh -o download.log` |
+| `--interactive`      | `-i`       | Force interactive mode                           | `./crazy_ds.sh -i`     |
 
 ### Table Notes:
 1. Time format must be 24-hour (e.g., `14:30` for 2:30 PM)
